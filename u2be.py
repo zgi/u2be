@@ -5,8 +5,8 @@ from urllib.request import urlopen
 import requests
 import youtube_dl
 
-ip_addr = '192.168.1.9'
-port = '5000'
+ip_addr = '192.168.1.9' #modify to suit your needs
+port = '5000'		#modify to suit your needs
 
 class u2be():
 	def __init__(self, youtubeLink):
@@ -84,4 +84,4 @@ def getPlaylist(path):
 		return(403)
 
 if __name__ == "__main__":
-	app.run(host=ip_addr, port=port, debug=True)
+	app.run(host=ip_addr, port=port, debug=False)
