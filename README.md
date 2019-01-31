@@ -1,5 +1,5 @@
 # u2be
-Youtube playlist streaming
+Youtube playlist audio streaming server
 
 App uses youtube-dl to fetch playlist from youtube. It generates .m3u playlist which can be played from various media players.
 
