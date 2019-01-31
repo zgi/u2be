@@ -7,7 +7,6 @@ App uses youtube-dl to fetch playlist from youtube. It generates .m3u playlist w
 - Python3
 - flask
 - urllib
-- requests
 - youtube_dl
 
 # How to
