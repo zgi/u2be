@@ -3,6 +3,13 @@ Youtube playlist audio streaming server
 
 App uses youtube-dl to fetch playlist from youtube. It generates .m3u playlist which can be played from various media players.
 
+# Requirements
+- Python3
+- flask
+- urllib
+- requests
+- youtube_dl
+
 # How to
 - Configure IP address and port number to suit your needs
 - Start u2be.py
