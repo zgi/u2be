@@ -1,39 +1,37 @@
 from flask import Flask, Response, redirect, render_template, request, abort, stream_with_context
 from werkzeug.datastructures import Headers
-from requests import get
 from urllib.request import urlopen
-import requests
 import youtube_dl
 
-ip_addr = '192.168.1.9' #modify to suit your needs
-port = '5000'		#modify to suit your needs
+
+ip_addr = '192.168.1.9'	#modify to suit your needs
+port = '5000'			#modify to suit your needs
 
 class u2be():
 	def __init__(self, youtubeLink):
-		self.ydl_opts = {'format': 'bestaudio/best'}
 		self.youtubeLink = youtubeLink
 	def getAudioUrl(self):
-		with youtube_dl.YoutubeDL(self.ydl_opts) as ydl:
+		with youtube_dl.YoutubeDL() as ydl:
 			info = ydl.extract_info(self.youtubeLink, download=False)
-			num = 0
-			for key in range(len(info['formats'])):
-				if info['formats'][num]['format_id'] == '251':
-					format = info['formats'][num]['url']
-					print('Format: 251')
-					return format
-					break
-				elif info['formats'][num]['format_id'] == '171':
-					format = info['formats'][num]['url']
-					print('Format: 171')
-					return format
-					break
-				elif info['formats'][num]['format_id'] == '140':
-					format = info['formats'][num]['url']
-					print('Format: 140')
-					return format
-					break
-				num += 1
+			formats = info['formats']
+			usable_formats = {'171', '140'}
+			yt_formats = {}
+			max_key = None
+			max_val = 0
+			for key in range(len(formats)):
+				if formats[key]['format_id'] in usable_formats:
+					yt_formats.update({key:int(formats[key]['format_id'])})
+			for key, value in yt_formats.items():
+				if value > max_val:
+					max_key = key
+					max_val = value
+			print("\nStreaming audio: {}".format(info['title']))
+			print("Available formats: {}".format(yt_formats))
+			print("Best format index: {}".format(max_key))
+			print("Streaming format: {}".format(formats[max_key]['format_id']))
+			return formats[max_key]['url']
 
+				
 	def genPlaylist(self):
 		ydl_opts = {'extract_flat': True, 'dumpjson': True}
 		remKeys =['uploader_id', 'uploader', 'uploader_url', 'extractor_key', '_type', 'extractor', 'webpage_url', 'title', 'webpage_url_basename', 'id']
