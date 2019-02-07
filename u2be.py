@@ -89,4 +89,4 @@ def make_playlist(path):
 
 
 if __name__ == "__main__":
-    app.run(host=ip_addr, port=port, debug=True)
+    app.run(host=ip_addr, port=port, debug=False)
